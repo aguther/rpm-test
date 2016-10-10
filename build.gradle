@@ -1,0 +1,95 @@
+// --------------------------------------------------------------------------------------------------------------------
+plugins {
+    id 'nebula.ospackage' version '4.0.0'
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+ospackage {
+    vendor = 'Andreas Guther'
+    url = 'http://www.github.com/aguther'
+    license = 'Apache 2.0'
+
+    summary = 'RPM Test'
+    description = 'RPM package to test update function.'
+
+    packageGroup = 'Development/Tools'
+
+    packager = 'Andreas Guther'
+
+    version = '1.0'
+    release = 1
+    arch = NOARCH
+    os = LINUX
+
+    user = 'root'
+
+    into '/opt/aguther/rpm-test'
+}
+
+buildRpm {
+  preInstall """
+    echo \"\"
+    echo \"~~~~ BEGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"Phase   preInstall\"
+    echo \"Version \${RPM_PACKAGE_VERSION}\"
+    echo \"Mode    \$1\"
+    echo \"~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"\"
+  """
+
+  postInstall """
+    echo \"\"
+    echo \"~~~~ BEGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"Phase   postInstall\"
+    echo \"Version \${RPM_PACKAGE_VERSION}\"
+    echo \"Mode    \$1\"
+    echo \"~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"\"
+  """
+
+  preUninstall """
+    echo \"\"
+    echo \"~~~~ BEGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"Phase   preUninstall\"
+    echo \"Version \${RPM_PACKAGE_VERSION}\"
+    echo \"Mode    \$1\"
+    echo \"~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"\"
+  """
+
+  postUninstall """
+    echo \"\"
+    echo \"~~~~ BEGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"Phase   postUninstall\"
+    echo \"Version \${RPM_PACKAGE_VERSION}\"
+    echo \"Mode    \$1\"
+    echo \"~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"\"
+  """
+
+  preTrans """
+    echo \"\"
+    echo \"~~~~ BEGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"Phase   preTrans\"
+    echo \"Version \${RPM_PACKAGE_VERSION}\"
+    echo \"Mode    \$1\"
+    echo \"~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"\"
+  """
+
+  postTrans """
+    echo \"\"
+    echo \"~~~~ BEGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"Phase   postTrans\"
+    echo \"Version \${RPM_PACKAGE_VERSION}\"
+    echo \"Mode    \$1\"
+    echo \"~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"
+    echo \"\"
+  """
+
+  installUtils """
+  """
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+defaultTasks 'buildRpm'
